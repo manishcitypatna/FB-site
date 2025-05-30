@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.gsmatech.com/sitemap.xml # Replace with actual domain

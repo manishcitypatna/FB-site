@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+@layer base {
+  :root {
+    /* Light Theme using White, Dark Cyan, Very Dark Blue */
+    --background: 0 0% 100%; /* White */
+    --foreground: 212 78% 13%; /* Very Dark Blue */
+
+    --card: 0 0% 100%; /* White */
+    --card-foreground: 212 78% 13%; /* Very Dark Blue */
+
+    --popover: 0 0% 100%; /* White */
+    --popover-foreground: 212 78% 13%; /* Very Dark Blue */
+
+    --primary: 175 70% 38%; /* Dark Cyan */
+    --primary-foreground: 0 0% 100%; /* White */
+
+    --secondary: 175 60% 92%; /* Very Light Cyan */
+    --secondary-foreground: 175 70% 28%; /* Darker Cyan for text on light cyan */
+
+    --muted: 210 40% 96%; /* Very Light Neutral Blue/Gray */
+    --muted-foreground: 210 35% 55%; /* Muted Neutral Blue/Gray Text */
+
+    --accent: 175 70% 38%; /* Dark Cyan */
+    --accent-foreground: 0 0% 100%; /* White */
+
+    --destructive: 0 84.2% 60.2%; /* Default Destructive */
+    --destructive-foreground: 0 0% 98%; /* Default Destructive Foreground */
+
+    --border: 210 30% 88%; /* Light Neutral Border */
+    --input: 210 30% 85%; /* Slightly darker input background */
+    --ring: 175 70% 45%; /* Dark Cyan, slightly brighter for ring */
+
+    --radius: 0.5rem;
+
+    /* Chart colors - can be adjusted if needed */
+    --chart-1: 12 76% 61%;
+    --chart-2: 175 65% 35%; /* Dark Cyan based */
+    --chart-3: 212 70% 25%; /* Very Dark Blue based */
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+
+    /* Custom variables for GSMA */
+    --neon-glow-primary: 0 0 5px hsl(var(--primary)), 0 0 10px hsl(var(--primary)), 0 0 15px hsl(var(--primary));
+    --neon-glow-accent: 0 0 5px hsl(var(--accent)), 0 0 10px hsl(var(--accent)), 0 0 15px hsl(var(--accent));
+  }
+
+  .dark {
+    /* Dark Theme using Very Dark Blue, Dark Cyan, White */
+    --background: 212 78% 13%; /* Very Dark Blue */
+    --foreground: 0 0% 95%; /* Off-White */
+
+    --card: 212 70% 18%; /* Slightly Lighter Very Dark Blue */
+    --card-foreground: 0 0% 95%; /* Off-White */
+
+    --popover: 212 75% 15%; /* Darker Very Dark Blue */
+    --popover-foreground: 0 0% 95%; /* Off-White */
+
+    --primary: 175 70% 38%; /* Dark Cyan */
+    --primary-foreground: 0 0% 100%; /* White */
+
+    --secondary: 0 0% 100%; /* White */
+    --secondary-foreground: 212 78% 13%; /* Very Dark Blue (for text on white secondary) */
+
+    --muted: 212 60% 25%; /* Muted Very Dark Blue */
+    --muted-foreground: 0 0% 70%; /* Muted Off-White/Gray */
+
+    --accent: 175 70% 38%; /* Dark Cyan (matching new primary) */
+    --accent-foreground: 0 0% 100%; /* White */
+
+    --destructive: 0 62.8% 50.6%; /* Default Dark Destructive */
+    --destructive-foreground: 0 0% 98%; /* Default Dark Destructive Foreground */
+
+    --border: 212 50% 28%; /* Dark Border */
+    --input: 212 50% 25%; /* Dark Input Background */
+    --ring: 175 70% 45%; /* Brighter Dark Cyan for ring in dark mode (adjusted for new primary) */
+
+    /* Chart colors for dark theme - can be adjusted */
+    --chart-1: 220 70% 50%;
+    --chart-2: 175 70% 50%; /* Brighter Dark Cyan based */
+    --chart-3: 212 60% 35%; /* Lighter Very Dark Blue based */
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    @apply transition-colors duration-300;
+  }
+}
+
+.glassmorphic {
+  @apply bg-card/30 backdrop-blur-lg border border-card/20 shadow-xl;
+}
+
+.dark .glassmorphic {
+   @apply bg-card/10 backdrop-blur-lg border border-card/5 shadow-2xl;
+}
+
+.neon-text-primary {
+  text-shadow: var(--neon-glow-primary);
+}
+
+.neon-text-accent {
+  text-shadow: var(--neon-glow-accent);
+}
+
+/* Particle background placeholder - can be replaced with JS solution */
+.particle-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  /* overflow: hidden; */ /* Be careful with overflow hidden on body or html direct children */
+}
+
+.particle-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background-image: radial-gradient(circle, hsl(var(--accent) / 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: pan-particles 60s linear infinite;
+  opacity: 0.5;
+}
+
+.dark .particle-bg::before {
+  background-image: radial-gradient(circle, hsl(var(--accent) / 0.05) 1px, transparent 1px);
+}
+
+
+@keyframes pan-particles {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
